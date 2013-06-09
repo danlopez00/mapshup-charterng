@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
+	xmlns:geo="http://a9.com/-/opensearch/extensions/geo/1.0/" xmlns:time="http://a9.com/-/opensearch/extensions/time/1.0/">
+	<ShortName>Charter Acquisitions search</ShortName>
+	<Description>International Charter Acquisitions images catalog search service</Description>
+	<Tags>charter</Tags>
+	<Contact>admin@disasterschartercatalog.org</Contact>
+	<Url type="application/json" template="/plugins/charterng/search_acq.php?callid={cht:callid?}&amp;bbox={geo:box?}&amp;modified={time:start?}" />
+	<Url type="application/json" rel="mspdesc" template="/plugins/charterng/opensearch.json" />
+	<LongName>Charter OpenSearch catalog</LongName>
+	<Query role="example" searchTerms="observatory" />
+	<Attribution>CNES</Attribution>
+	<Language>fr</Language>
+</OpenSearchDescription>

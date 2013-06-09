@@ -1,0 +1,27 @@
+<?php
+
+/*
+ * Domain where application is running
+ */
+define("CHARTERNG_DOMAIN", "engine.mapshup.info");
+
+/*
+ * URLs configuration
+ */
+define("CHARTERNG_QUICKLOOK_URL", "http://" . CHARTERNG_DOMAIN . "/charterng/md/");
+define("CHARTERNG_METADATA_URL", "http://" . CHARTERNG_DOMAIN . "/charterng/md/");
+
+/*
+ * Charter NG database configuration
+ */
+define("CHARTERNG_DB_HOST", "localhost");
+define("CHARTERNG_DB_NAME", "charterng");
+define("CHARTERNG_DB_USER", "charterng");
+define("CHARTERNG_DB_PASSWORD", "1234abcd");
+
+/*
+ * Maximum number of results per page
+ */
+define("RESULTS_PER_PAGE", 50);
+
+?>

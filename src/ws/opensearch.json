@@ -1,0 +1,10 @@
+{
+  "filters": [
+    {
+      "id": "callid",
+      "title": "Disaster CallId",
+      "type": "text",
+      "size": 3
+    }
+  ]
+}
