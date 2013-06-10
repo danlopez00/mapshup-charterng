@@ -147,9 +147,9 @@ We suppose that pure-ftpd is correctly installed within a "normal" path
         echo "yes" > /etc/pure-ftpd/conf/CallUploadScript
 
 4. Create ftpgroup and ftpuser
-	
-	groupadd ftpgroup
-	useradd -g ftpgroup -d /dev/null -s /etc ftpuser
+
+        groupadd ftpgroup
+        useradd -g ftpgroup -d /dev/null -s /etc ftpuser
 
 
 Configure automatic tasks
@@ -163,12 +163,12 @@ Configure automatic tasks
 
 2. add the following line ($CHARTERNG_HOME should be replaced by the right path)
 
-        #Note that this script will be executed every day at 01:00 AM
-	00 1 * * * /usr/bin/php $CHARTERNG_HOME/manage/charterngInsertDisasters.php $CHARTERNG_HOME/manage
+        # Note that this script will be executed every day at 01:00 AM
+        00 1 * * * /usr/bin/php $CHARTERNG_HOME/manage/charterngInsertDisasters.php $CHARTERNG_HOME/manage
 
 3. Restart cron
 
-	service cron restart (or /etc/init.d/cron restart)
+        service cron restart (or /etc/init.d/cron restart)
 
 
 FAQ
