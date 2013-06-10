@@ -10,21 +10,58 @@ The metadata files imported within the catalog should be aligned with the follow
 
     1. The metadata file sould be a zip file called [CALLID]_[FORMAT]_XXXXX.ZIP where :
           - CALLID shall be the CALLID wich your product will be linked to
-          - FORMAT shall be on of the following : OPT, SAR, DIMAP, PHR, F2, K2, RS1, RS2, SACC, IRS, LANDSAT
+          - FORMAT : is the metadata format that is describe within the ZIP file
+                DIMAP       (SPOT format used by CNES, DMC)
+                F2          (Formosat2)
+                K2          (Kompsat-2)(same as OPT)
+                SACC
+                RS1         (Radarsat1)
+                RS2         (Radarsat2)
+                SAR         (HMA SAR used by DLR, ESA)
+                OPT         (HMA OPT used by ESA, JAXA, KARI, CBERS)
+                IRS
+                LANDSAT
           - XXXX can be anything you want (usefull if you have more that one product linked to the same CALLID)
+
+     NOTE : the callid must be on three digit (e.g. 53 must be written 053)
+     For example if you want to link a DIMAP product to CALLID 53, then a valid zip file will be called 053_DIMAP_01.ZIP
+
 
     2. The zip file should contain at least
              - a metadata file (format depends on Agencies)
-	     - (optional) a thumbnail image (small preview of the product image - typically a 125x125 pixels image)
-	     - (optional) a quicklook image (bigger preview of the product image - typically a 500x500 pixels image)
+	     - (optional) a thumbnail image (small preview of the product image - typically a 125x125 pixels image) usually called ICON.JPG
+	     - (optional) a quicklook image (bigger preview of the product image - typically a 500x500 pixels image) usually called PREVIEW.JPG
            
-     NOTE : the callid must be on three digit (e.g. 53 must be written 053)
-     For example if you want to link your product to CALLID 53, then a valid zip file will be called 053_01.ZIP
+
+     NOTE on files :
+             - JAXA don't have PREVIEW.JPG and ICON.JPG
+             - CBERS have "quicklook.jpg" instead of PREVIEW.JPG and don't have ICON.JPG
+             - CBERS zipped files are within a directory (not zipped directly at the root)
+             - EOP metadata file can be in uppercase or lowercase
+             - IRS have variable metadata and jpeg filenames (can be .jpeg or .jpg)
+             - DIMAP and F2 files are METADATA.DIM, ICON.JPG and PREVIEW.JPG
 
 Installation
 ============
 
 This document supposes that the current sources are located within the $CHARTERNG_HOME directory and that the web application build from the sources will be installed in $CHARTERNG_TARGET directory
+
+Prerequesites
+-------------
+1. A linux server
+
+2. At least 20 Go of hardrive free space
+
+3. The following applications running
+* PHP (v5.3.6+)	both in command line and in Apache
+* PHP Curl (v7.21.3+)
+* Apache (v2.2.17+) with PHP support
+* PostgreSQL (v8.4+)
+* PostGIS (v1.5.1+)
+* mapserver (v6+)   (optional)
+* GDAL (1.8+)
+* pure-ftpd compiled with uploadscript
+
 
 Apache configuration (Linux ubuntu)
 --------------------------------------
@@ -66,6 +103,28 @@ Database installation and initialisation
 
         $CHARTERNG_HOME/manage/charterIngestAll.php ALL ALL
 
+5. Populate aois table from aois shapefile
+
+    First delete aois table content :
+    
+        a. Enter database prompt
+
+   	psql -U postgres -d charterng
+	
+	b. Delete aois content
+
+		DELETE FROM aois;
+
+ 	c. Quit database prompt
+    
+   	\q
+
+
+     Insert aois from shapefile
+
+        shp2pgsql -s 4326 -W LATIN1 -a -g the_geom $CHARTERNG_HOME/aois/Charter_activations_aois.shp aois > dump.txt
+        psql -U postgres -d charterng -h localhost -f dump.txt
+        /bin/rm dump.txt
 
 
 Build CharterNG application
@@ -94,3 +153,26 @@ To ingest a new $ZIP product
         $CHARTERNG_HOME/manage/charterIngestAcquisition $ZIP AUTO
 
 
+FAQ
+---
+
+1. Check location of disasters against AOIs footprints
+ 
+          The following command detects which disasters location are NOT inside the footprint
+          of the corresponding AOIs. This is a usefull test to validate AOIs file.
+         
+          	1. Enter database prompt
+         
+            	psql -U postgres -d charterng
+         	
+         	2. Check which disasters location are NOT inside AOIs footprint
+         
+         		SELECT callid, gid
+         		FROM disasters, aois
+         		WHERE disasters.callid = ''|| aois.call_id_1
+         		AND NOT ST_Contains(aois.the_geom, disasters.location)
+         		ORDER BY callid;
+         
+          	3. Quit database prompt
+             
+            	\q
