@@ -103,7 +103,9 @@ Install and configure database
 Build mapshup client
 --------------------
 
-The first time, you need to perform a complete build
+1. Edit $CHARTERNG_HOME/src/ws/config.php to set global variables values
+
+2. Launch complete build
 
         ./build.sh -a -t $CHARTERNG_TARGET
 
