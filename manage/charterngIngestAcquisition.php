@@ -33,11 +33,6 @@
 // Remove PHP NOTICE
 error_reporting(E_PARSE);
 
-// Root directory is current directory
-include_once getcwd() . '/config.php';
-include_once getcwd() . '/lib/functions.php';
-include_once getcwd() . '/lib/formatsReader.php';
-
 // Set Timezone
 date_default_timezone_set("Europe/Paris");
 
@@ -47,16 +42,21 @@ if (empty($_SERVER['SHELL'])) {
 }
 
 // Get format and callid
-if (!$_SERVER['argv'][2]) {
-    echo "\n    Usage : " . $_SERVER['argv'][0] . " [ZIP FILE] [FORMAT]\n";
+if (!$_SERVER['argv'][3]) {
+    echo "\n    Usage : " . $_SERVER['argv'][0] . " [CHARTERNG_MANAGE_DIR] [ZIP FILE] [FORMAT]\n";
     echo "      Ingest [ZIP FILE] with [FORMAT]. [ZIP FILE] is copied within CHARTERNG_ARCHIVES directory \n\n";
     echo "         Note : Format can be set to AUTO if zip file name follow the [CALLID]_[FORMAT]_XXXX.zip convention\n";
     echo "         Possible formats are : (AUTO), OPT, SAR, DIMAP, PHR, F2, K2, RS1, RS2, SACC, IRS, LANDSAT\n\n";
     exit;
 }
 
-$zip = $_SERVER['argv'][1];
-$format = $_SERVER['argv'][2];
+// Configuration files
+include_once $_SERVER['argv'][1] . '/config.php';
+include_once $_SERVER['argv'][1] . '/lib/functions.php';
+include_once $_SERVER['argv'][1] . '/lib/formatsReader.php';
+
+$zip = $_SERVER['argv'][2];
+$format = $_SERVER['argv'][3];
 
 // Database connection to Charter NG database
 $dbh = pg_connect("host=" . CHARTERNG_DB_HOST . " dbname=" . CHARTERNG_DB_NAME . " user=" . CHARTERNG_DB_USER . " password=" . CHARTERNG_DB_PASSWORD) or die(pg_last_error());

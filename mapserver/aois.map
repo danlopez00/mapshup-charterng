@@ -1,0 +1,78 @@
+
+MAP
+    EXTENT -180.0 -90.0 180.0 90.0
+    IMAGECOLOR 255 255 255
+    IMAGEQUALITY 100
+    IMAGETYPE PNG
+    INTERLACE ON
+    SIZE 256 256
+    STATUS ON
+    TRANSPARENT ON
+    UNITS DD
+    DEBUG 0
+    FONTSET "/Users/jrom/Devel/mapshup-charterng/mapserver/font.list"
+    MAXSIZE 3000
+    OUTPUTFORMAT
+        NAME "AGGPNG"
+        DRIVER "AGG/PNG"
+        EXTENSION "png"
+        MIMETYPE "image/png"
+        IMAGEMODE RGBA
+        TRANSPARENT ON
+        FORMATOPTION "TRANSPARENT=ON"
+    END
+    WEB
+      IMAGEPATH "/tmp/"
+      IMAGEURL "/"
+      METADATA
+        "ows_enable_request"   "*"
+        "wms_title"          "WMS for International Disasters Charter"
+        "wms_onlineresource" "http://localhost/cgi-bin/mapserv?map=/Users/jrom/Devel/mapshup-charterng/mapserver/aois.map&"
+        "wms_srs"            "EPSG:4326 EPSG:3857"
+        "wms_feature_info_mime_type"    "text/html"
+        "wms_extent"          "-180.0,-90.0,180.0,90.0"
+      END
+    END
+    PROJECTION
+      "init=epsg:3857"
+    END
+    LAYER
+        NAME "aois"
+        METADATA
+           "wms_title" "aois"
+           "wms_srs"   "EPSG:4326"
+           "wms_extent" "-180.0 -90.0 180.0 90.0"
+           "wms_timeformat" "YYYY-MM-DD, YYYY-MM-DDT00:00:00"
+           "wms_timeextent" "2000-01-01/2015-01-01"
+           "wms_timeitem" "act_date_1"
+        END
+        DATA "the_geom FROM aois using unique gid using srid = 4326"
+        TYPE POLYGON
+        EXTENT -180.0 -90.0 180.0 90.0
+        LABELITEM "call_id_1"
+        CLASS
+          NAME "aois"
+          STYLE
+              WIDTH 1
+              OUTLINECOLOR 255 255 255
+              COLOR 255 255 0
+              OPACITY 30
+          END
+          LABEL
+            COLOR 0 0 0
+            FONT arialbd
+            POSITION CC
+            SIZE 10
+            TYPE TRUETYPE
+          END
+        END
+        PROJECTION
+            "proj=latlong"
+            "ellps=WGS84"
+            "datum=WGS84"
+        END
+        CONNECTION "user=charterng password=1234abcd dbname=charterng host=localhost port=5432"
+        CONNECTIONTYPE POSTGIS
+        #PROCESSING "CLOSE_CONNECTION=DEFER"
+    END
+END

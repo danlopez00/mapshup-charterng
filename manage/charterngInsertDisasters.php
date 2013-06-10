@@ -52,9 +52,6 @@
  * 
  */
 
-// Root directory is current directory
-include_once getcwd() . '/config.php';
-
 /* ===================== FUNCTIONS ========================= */
 
 /**
@@ -267,6 +264,16 @@ date_default_timezone_set("Europe/Paris");
 if (empty($_SERVER['SHELL'])) {
     exit;
 }
+
+// Get format and callid
+if (!$_SERVER['argv'][1]) {
+    echo "\n    Usage : " . $_SERVER['argv'][0] . " [CHARTERNG_MANAGE_DIR]\n";
+    echo "      Insert disasters description from ESA feed\n\n"; 
+    exit;
+}
+
+// Configuration files
+include_once $_SERVER['argv'][1] . '/config.php';
 
 // ESA XML feed
 $url = 'http://www.disasterscharter.org/DisasterCharter/CnesXml?articleType=activation&locale=en_US&companyId=1&communityId=10729';

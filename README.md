@@ -64,7 +64,7 @@ A linux server with at least 20 Go of hardrive free space and the following appl
 Apache configuration (Linux ubuntu)
 --------------------------------------
 
-1. Add the following rule to /etc/apache2/sites-available/default file
+Add the following rule to /etc/apache2/sites-available/default file
 
         Alias /charterng/ "/$CHARTERNG_TARGET/"
         <Directory "/$CHARTERNG_TARGET/">
@@ -74,9 +74,9 @@ Apache configuration (Linux ubuntu)
             Allow from all
         </Directory>
 
-Note: $CHARTERNG_TARGET should be replaced by the its value (i.e. if $CHARTERNG_TARGET=/var/www/charterng, then put /var/www/charterng in the apache configuration file)
+*Note: $CHARTERNG_TARGET should be replaced by the its value (i.e. if $CHARTERNG_TARGET=/var/www/charterng, then put /var/www/charterng in the apache configuration file)*
 
-2. Relaunch Apache
+Relaunch Apache
 
         sudo apachectl restart
 
@@ -93,13 +93,13 @@ Database installation and initialisation
 
 3. Populate disasters table from ESA feed
 
-        $CHARTERNG_HOME/manage/charterngInsertDisasters.php
+        $CHARTERNG_HOME/manage/charterngInsertDisasters.php $CHARTERNG_HOME/manage
 
 4. Populate acquisitions table from zips archives
 
     It is assumed that CHARTERNG_ARCHIVES directory contains all metadata zips. These zips follow the naming convention described previously.
 
-        $CHARTERNG_HOME/manage/charterIngestAll.php ALL ALL
+        $CHARTERNG_HOME/manage/charterIngestAll.php $CHARTERNG_HOME/manage ALL ALL
 
 5. Populate aois table from aois shapefile
 
@@ -115,17 +115,17 @@ Database installation and initialisation
         psql -U postgres -d charterng -h localhost -f dump.txt
         /bin/rm dump.txt
 
+6. Create AOIs mapfile under $CHARTERNG_HOME/mapserver
+    
+        $CHARTERNG_HOME/manage/charterngCreateMapfile.php $CHARTERNG_HOME/manage $CHARTERNG_HOME/mapserver
+
 
 Build CharterNG application
 ---------------------------
 
-The first time, you need to peform a complete build
+The first time, you need to perform a complete build
 
         ./build.sh -a -t $CHARTERNG_TARGET
-
-Once mapshup is cloned and compiled, you need to perform a partial build each time you change a file from the src directory.
-
-        ./build.sh -t $CHARTERNG_TARGET
 
 
 FAQ
@@ -137,9 +137,9 @@ FAQ
 
 2. How to manually ingest a new $ZIP product
 
-        CHARTERNG_HOME/manage/charterIngestAcquisition $ZIP AUTO
+        $CHARTERNG_HOME/manage/charterIngestAcquisition $CHARTERNG_HOME/manage $ZIP AUTO
 
-1. Check location of disasters against AOIs footprints
+3. Check location of disasters against AOIs footprints
  
         The following command detects which disasters location are NOT inside the footprint
         of the corresponding AOIs. This is a usefull test to validate AOIs file.

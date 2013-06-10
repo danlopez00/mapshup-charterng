@@ -12,6 +12,11 @@ define("CHARTERNG_ARCHIVES_DIR", "/Users/jrom/tmp/archives/");
 define("CHARTERNG_METADATA_DIR", "/Users/jrom/tmp/md/");
 
 /*
+ * Mapserver URL is the url to access mapserver cgi-bin
+ */
+define("CHARTERNG_MAPSERVER_URL", "http://localhost/cgi-bin/mapserv");
+
+/*
  * Charter NG database configuration
  */
 define("CHARTERNG_DB_HOST", "localhost");
