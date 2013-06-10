@@ -61,28 +61,8 @@ A linux server with at least 20 Go of hardrive free space and the following appl
 * pure-ftpd compiled with uploadscript
 
 
-Apache configuration (Linux ubuntu)
---------------------------------------
-
-Add the following rule to /etc/apache2/sites-available/default file
-
-        Alias /charterng/ "/$CHARTERNG_TARGET/"
-        <Directory "/$CHARTERNG_TARGET/">
-            Options -Indexes -FollowSymLinks
-            AllowOverride None
-            Order allow,deny
-            Allow from all
-        </Directory>
-
-*Note: $CHARTERNG_TARGET should be replaced by the its value (i.e. if $CHARTERNG_TARGET=/var/www/charterng, then put /var/www/charterng in the apache configuration file)*
-
-Relaunch Apache
-
-        sudo apachectl restart
-
-
-Database installation and initialisation
-----------------------------------------
+Install and configure database
+------------------------------
 
 1. Install database
 
@@ -120,12 +100,75 @@ Database installation and initialisation
         $CHARTERNG_HOME/manage/charterngCreateMapfile.php $CHARTERNG_HOME/manage $CHARTERNG_HOME/mapserver
 
 
-Build CharterNG application
----------------------------
+Build mapshup client
+--------------------
 
 The first time, you need to perform a complete build
 
         ./build.sh -a -t $CHARTERNG_TARGET
+
+
+Configure Apache
+----------------
+
+Add the following rule to /etc/apache2/sites-available/default file
+
+        Alias /charterng/ "/$CHARTERNG_TARGET/"
+        <Directory "/$CHARTERNG_TARGET/">
+            Options -Indexes -FollowSymLinks
+            AllowOverride None
+            Order allow,deny
+            Allow from all
+        </Directory>
+
+*Note 1 : depending on the OS (linux, mac, etc.) the apache configuration file can have a different name. The example is valid for Ubuntu server*
+
+*Note 2 : $CHARTERNG_TARGET should be replaced by the its value (i.e. if $CHARTERNG_TARGET=/var/www/charterng, then put /var/www/charterng in the apache configuration file)*
+
+Relaunch Apache
+
+        sudo apachectl restart
+
+Configure pure-ftpd
+-------------------
+
+*This step can be skipped if you don't want to set an ftp server. The ftp server is used by agencies to upload metadata file.*
+
+We suppose that pure-ftpd is correctly installed within a "normal" path
+
+1. Login as "root" user
+
+2. Stop pure-ftpd
+
+        /etc/init.d/pure-ftpd stop
+
+3. Tell pure-ftpd to use uploadscript (See http://linux.justinhartman.com/PureFTPd_Installation_and_Setup) 
+
+        echo "yes" > /etc/pure-ftpd/conf/CallUploadScript
+
+4. Create ftpgroup and ftpuser
+	
+	groupadd ftpgroup
+	useradd -g ftpgroup -d /dev/null -s /etc ftpuser
+
+
+Configure automatic tasks
+-------------------------
+
+*This step can be skipped if you don't want to automatically update disasters description from ESA feed.*
+
+1. Edit the cron jobs
+
+        crontab -e
+
+2. add the following line ($CHARTERNG_HOME should be replaced by the right path)
+
+        #Note that this script will be executed every day at 01:00 AM
+	00 1 * * * /usr/bin/php $CHARTERNG_HOME/manage/charterngInsertDisasters.php $CHARTERNG_HOME/manage
+
+3. Restart cron
+
+	service cron restart (or /etc/init.d/cron restart)
 
 
 FAQ
