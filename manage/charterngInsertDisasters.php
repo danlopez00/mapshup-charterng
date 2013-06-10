@@ -80,17 +80,10 @@ function initCurl($url) {
      */
     $curl = curl_init();
 
-    /**
-     * If url is on the same domain name server
-     * as _msprowser application, it is accessed directly
-     * (i.e. no use of CURL proxy)
-     */
-    if ((substr($url, 0, 16) != "http://localhost") && (stristr($url, DOMAIN) === FALSE)) {
-        if (USE_PROXY) {
-            curl_setopt($curl, CURLOPT_PROXY, PROXY_URL);
-            curl_setopt($curl, CURLOPT_PROXYPORT, PROXY_PORT);
-            curl_setopt($curl, CURLOPT_PROXYUSERPWD, PROXY_USER . ":" . PROXY_PASSWORD);
-        }
+    if (USE_PROXY) {
+        curl_setopt($curl, CURLOPT_PROXY, PROXY_URL);
+        curl_setopt($curl, CURLOPT_PROXYPORT, PROXY_PORT);
+        curl_setopt($curl, CURLOPT_PROXYUSERPWD, PROXY_USER . ":" . PROXY_PASSWORD);
     }
 
     return $curl;
