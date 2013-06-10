@@ -89,7 +89,7 @@ Install and configure database
         DELETE FROM aois;
         EOF
 
-     Insert aois from shapefile
+     Insert aois from shapefile (you must get a shapefile of AOIs otherwise skip steps 5. and 6.)
 
         shp2pgsql -s 4326 -W LATIN1 -a -g the_geom $CHARTERNG_HOME/aois/Charter_activations_aois.shp aois > dump.txt
         psql -U postgres -d charterng -h localhost -f dump.txt
