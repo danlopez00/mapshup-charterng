@@ -24,7 +24,7 @@ The metadata files imported within the catalog should be aligned with the follow
 Installation
 ============
 
-This document supposes that the current sources are locate within the $CHARTERNG_HOME directory and that the web application build from the sources will be installed in $CHARTERNG_TARGET directory
+This document supposes that the current sources are located within the $CHARTERNG_HOME directory and that the web application build from the sources will be installed in $CHARTERNG_TARGET directory
 
 Apache configuration (Linux ubuntu)
 --------------------------------------
