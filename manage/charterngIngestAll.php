@@ -60,7 +60,7 @@ $_FORMAT = $_SERVER['argv'][2];
 $dbh = pg_connect("host=".CHARTERNG_DB_HOST." dbname=".CHARTERNG_DB_NAME." user=".CHARTERNG_DB_USER." password=".CHARTERNG_DB_PASSWORD) or die(pg_last_error());
     
 // Unzip archives directory within the md directory
-$srcDir = CHARTERNG_HOME . "/archives/";
+$srcDir = CHARTERNG_ARCHIVES_DIR;
 $zips = getFilesList($srcDir, array("zip"));
 foreach ($zips as $zip) {
 
@@ -83,7 +83,7 @@ foreach ($zips as $zip) {
     }
 
     $relativeDir = substr($zip, 0, -4) . "/";
-    $targetDir = CHARTERNG_METADATA_PATH . $relativeDir;
+    $targetDir = CHARTERNG_METADATA_DIR. $relativeDir;
 
     echo "Processing $zip\n";
 

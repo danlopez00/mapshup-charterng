@@ -126,7 +126,6 @@ function getRemoteData($url, $useragent, $info) {
 }
 
 
-
 function xmlToDatabase($theData) {
 
     $doc = new DOMDocument();

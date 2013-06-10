@@ -1,11 +1,15 @@
 <?php
 
 /*
- * Paths configuration
+ * Archives directory is where zip files are stored
  */
-define("CHARTERNG_HOME", "/home/projects/charterng/");
-define("CHARTERNG_TARGET", "/home/www/engine.mapshup.info/charterng/");
-define("CHARTERNG_METADATA_PATH", CHARTERNG_TARGET . "/md/");
+define("CHARTERNG_ARCHIVES_DIR", "/Users/jrom/tmp/archives/");
+
+/*
+ * Metadata directory is where zip files are unzipped
+ * !! This directory should be served by Apache - see src/ws/config.php !!
+ */
+define("CHARTERNG_METADATA_DIR", "/Users/jrom/tmp/md/");
 
 /*
  * Charter NG database configuration
