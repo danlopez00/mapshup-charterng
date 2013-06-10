@@ -48,11 +48,9 @@ This document supposes that the current sources are located within the $CHARTERN
 
 Prerequesites
 -------------
-1. A linux server
 
-2. At least 20 Go of hardrive free space
+A linux server with at least 20 Go of hardrive free space and the following applications running :
 
-3. The following applications running
 * PHP (v5.3.6+)	both in command line and in Apache
 * PHP Curl (v7.21.3+)
 * Apache (v2.2.17+) with PHP support
@@ -106,19 +104,10 @@ Database installation and initialisation
 5. Populate aois table from aois shapefile
 
     First delete aois table content :
-    
-        a. Enter database prompt
 
-   	psql -U postgres -d charterng
-	
-	b. Delete aois content
-
-		DELETE FROM aois;
-
- 	c. Quit database prompt
-    
-   	\q
-
+        psql -U postgres -d charterng << EOF
+        DELETE FROM aois;
+        EOF
 
      Insert aois from shapefile
 
@@ -139,40 +128,34 @@ Once mapshup is cloned and compiled, you need to perform a partial build each ti
         ./build.sh -t $CHARTERNG_TARGET
 
 
-Test application
-----------------
-
-Go to http://localhost/charterng/
-
-
-Ingest new products
--------------------
-
-To ingest a new $ZIP product
-
-        $CHARTERNG_HOME/manage/charterIngestAcquisition $ZIP AUTO
-
-
 FAQ
 ---
 
+1. How to test the application
+
+        Go to http://localhost/charterng/
+
+2. How to manually ingest a new $ZIP product
+
+        CHARTERNG_HOME/manage/charterIngestAcquisition $ZIP AUTO
+
 1. Check location of disasters against AOIs footprints
  
-          The following command detects which disasters location are NOT inside the footprint
-          of the corresponding AOIs. This is a usefull test to validate AOIs file.
-         
-          	1. Enter database prompt
-         
-            	psql -U postgres -d charterng
-         	
-         	2. Check which disasters location are NOT inside AOIs footprint
-         
-         		SELECT callid, gid
-         		FROM disasters, aois
-         		WHERE disasters.callid = ''|| aois.call_id_1
-         		AND NOT ST_Contains(aois.the_geom, disasters.location)
-         		ORDER BY callid;
-         
-          	3. Quit database prompt
-             
-            	\q
+        The following command detects which disasters location are NOT inside the footprint
+        of the corresponding AOIs. This is a usefull test to validate AOIs file.
+
+              1. Enter database prompt
+
+              psql -U postgres -d charterng
+
+              2. Check which disasters location are NOT inside AOIs footprint
+
+                      SELECT callid, gid
+                      FROM disasters, aois
+                      WHERE disasters.callid = ''|| aois.call_id_1
+                      AND NOT ST_Contains(aois.the_geom, disasters.location)
+                      ORDER BY callid;
+
+              3. Quit database prompt
+
+              \q
