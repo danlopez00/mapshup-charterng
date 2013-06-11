@@ -136,7 +136,7 @@ Configure pure-ftpd
 
 *This step can be skipped if you don't want to set an ftp server. The ftp server is used by agencies to upload metadata file.*
 
-We suppose that pure-ftpd is correctly installed and $PURE_VIRTUAL_ROOT is the home directory root for virtual users
+We suppose that pure-ftpd is correctly installed
 
 1. Login as "root" user
 
@@ -153,23 +153,24 @@ We suppose that pure-ftpd is correctly installed and $PURE_VIRTUAL_ROOT is the h
         # Replace $CHARTERNG_HOME by its value
         UPLOADSCRIPT=$CHARTERNG_HOME/manage/charterngPureUploadScript.sh
 
-5. Edit $CHARTERNG_HOME/manage/charterngPureUploadScript.sh
+5. Edit $CHARTERNG_HOME/manage/users.txt file with your users
+
+
+6. Edit $CHARTERNG_HOME/manage/charterngPureUploadScript.sh
 
         Set PURE_VIRTUAL_ROOT and CHARTERNG_HOME
 
-4. Create ftpgroup and ftpuser
+7. Create ftpgroup and ftpuser
 
         groupadd ftpgroup
         useradd -g ftpgroup -d /dev/null -s /etc ftpuser
 
-5. Create virtual users
+8. Create virtual users
 
-        pure-pw useradd DIMAP_agency -u ftpuser -g ftpgroup -d $PURE_VIRTUAL_ROOT/DIMAP/ -N 100
-        pure-pw useradd EOP_agency -u ftpuser -g ftpgroup -d $PURE_VIRTUAL_ROOT/EOP/ -N 100
-        ...
-        pure-pw useradd SAR_agency -u ftpuser -g ftpgroup -d $PURE_VIRTUAL_ROOT/SAR/ -N 100
+        pure-pw useradd user1 -u ftpuser -g ftpgroup -d /ftphomedir/user1 -N 100
+        pure-pw useradd user2 -u ftpuser -g ftpgroup -d /ftphomedir/user2 -N 100
 
-6. Rebuild password database
+9. Rebuild password database
 
         pure-pw mkdb
 

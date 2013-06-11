@@ -42,11 +42,12 @@ if (empty($_SERVER['SHELL'])) {
 }
 
 // Get format and callid
-if (!$_SERVER['argv'][3]) {
-    echo "\n    Usage : " . $_SERVER['argv'][0] . " [CHARTERNG_MANAGE_DIR] [ZIP FILE] [FORMAT]\n";
+if (!$_SERVER['argv'][4]) {
+    echo "\n    Usage : " . $_SERVER['argv'][0] . " [CHARTERNG_MANAGE_DIR] [ZIP FILE] [FORMAT] [EMAIL]\n";
     echo "      Ingest [ZIP FILE] with [FORMAT]. [ZIP FILE] is copied within CHARTERNG_ARCHIVES directory \n\n";
     echo "         Note : Format can be set to AUTO if zip file name follow the [CALLID]_[FORMAT]_XXXX.zip convention\n";
     echo "         Possible formats are : (AUTO), OPT, SAR, DIMAP, PHR, F2, K2, RS1, RS2, SACC, IRS, LANDSAT\n\n";
+    echo "         If EMAIL value is 0 then no mail are sent, otherwise a mail indicated if the ingestion is OK or KO is sent to EMAIL\n\n";
     exit;
 }
 
@@ -57,6 +58,8 @@ include_once $_SERVER['argv'][1] . '/lib/formatsReader.php';
 
 $zip = $_SERVER['argv'][2];
 $format = $_SERVER['argv'][3];
+$email = $_SERVER['argv'][4];
+$error = 0;
 
 // Database connection to Charter NG database
 $dbh = pg_connect("host=" . CHARTERNG_DB_HOST . " dbname=" . CHARTERNG_DB_NAME . " user=" . CHARTERNG_DB_USER . " password=" . CHARTERNG_DB_PASSWORD) or die(pg_last_error());
@@ -593,9 +596,27 @@ if (unzip($zip, $targetDir, true, true)) {
     }
 } else {
     echo " >> ERROR! Cannot process $zip \n";
+    $error = 1;
 }
 
 // Close database connexion
 pg_close($dbh);
+
+if ($email !== "0") {
+    
+    if ($error == 1) {
+        $subject = "[Charter][SUCCESS] Upload of " . $zip;
+        $message = "OK";
+    }
+    else {
+        $subject = "[Charter][ERROR] Upload of " . $zip;
+        $message = "KO";
+    }
+    
+    // Envoi du mail
+    mail($email, $subject, $message);
+    
+    echo " >> Send email to $email \n";
+}
 echo "Done !\n";
 ?>

@@ -1,0 +1,4 @@
+#------- THIS FILE SHOULD BE EDITED -------------
+# username|ftphomedir|format|email
+user1|/ftphomedir/user1|EOP|user1@example.com
+user2|/ftphomedir/user2|DIMAP|user2@example.com
