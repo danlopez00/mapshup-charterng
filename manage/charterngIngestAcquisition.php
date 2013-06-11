@@ -47,7 +47,7 @@ if (!$_SERVER['argv'][4]) {
     echo "      Ingest [ZIP FILE] with [FORMAT]. [ZIP FILE] is copied within CHARTERNG_ARCHIVES directory \n\n";
     echo "         Note : Format can be set to AUTO if zip file name follow the [CALLID]_[FORMAT]_XXXX.zip convention\n";
     echo "         Possible formats are : (AUTO), OPT, SAR, DIMAP, PHR, F2, K2, RS1, RS2, SACC, IRS, LANDSAT\n\n";
-    echo "         If EMAIL value is 0 then no mail are sent, otherwise a mail indicated if the ingestion is OK or KO is sent to EMAIL\n\n";
+    echo "         If EMAIL value is 'none' then no mail are sent, otherwise a mail indicated if the ingestion is OK or KO is sent to EMAIL\n\n";
     exit;
 }
 
@@ -602,7 +602,7 @@ if (unzip($zip, $targetDir, true, true)) {
 // Close database connexion
 pg_close($dbh);
 
-if ($email !== "0") {
+if ($email !== "none") {
     
     if ($error == 1) {
         $subject = "[Charter][SUCCESS] Upload of " . $zip;
