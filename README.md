@@ -158,7 +158,7 @@ We suppose that pure-ftpd is correctly installed
 
 6. Edit $CHARTERNG_HOME/manage/charterngPureUploadScript.sh
 
-        Set PURE_VIRTUAL_ROOT and CHARTERNG_HOME
+        Set CHARTERNG_HOME
 
 7. Create ftpgroup and ftpuser
 

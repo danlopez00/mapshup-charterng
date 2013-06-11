@@ -1,12 +1,8 @@
 #!/bin/bash
 
-# ---- YOU MUST SET THESE VALUES ----
+# ---- YOU MUST SET THIS VALUES ----
 
 CHARTERNG_HOME=
-
-# DO NOT FORGET THE ENDING "/"
-
-PURE_VIRTUAL_ROOT=
 
 # -----------------------------------
 #
