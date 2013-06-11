@@ -136,7 +136,7 @@ Configure pure-ftpd
 
 *This step can be skipped if you don't want to set an ftp server. The ftp server is used by agencies to upload metadata file.*
 
-We suppose that pure-ftpd is correctly installed
+We suppose that pure-ftpd is correctly installed and PURE_VIRTUAL_ROOT is the ftp home directory root for virtual users
 
 1. Login as "root" user
 
@@ -158,7 +158,7 @@ We suppose that pure-ftpd is correctly installed
 
 6. Edit $CHARTERNG_HOME/manage/charterngPureUploadScript.sh
 
-        Set CHARTERNG_HOME
+        Set CHARTERNG_HOME and PURE_VIRTUAL_ROOT
 
 7. Create ftpgroup and ftpuser
 
