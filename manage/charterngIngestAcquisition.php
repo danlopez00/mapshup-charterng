@@ -59,7 +59,7 @@ include_once $_SERVER['argv'][1] . '/lib/formatsReader.php';
 $zip = $_SERVER['argv'][2];
 $format = $_SERVER['argv'][3];
 $email = $_SERVER['argv'][4];
-$error = 0;
+$error = "none";
 
 // Database connection to Charter NG database
 $dbh = pg_connect("host=" . CHARTERNG_DB_HOST . " dbname=" . CHARTERNG_DB_NAME . " user=" . CHARTERNG_DB_USER . " password=" . CHARTERNG_DB_PASSWORD) or die(pg_last_error());
@@ -596,7 +596,7 @@ if (unzip($zip, $targetDir, true, true)) {
     }
 } else {
     echo " >> ERROR! Cannot process $zip \n";
-    $error = 1;
+    $error = "yes";
 }
 
 // Close database connexion
@@ -604,17 +604,22 @@ pg_close($dbh);
 
 if ($email !== "none") {
     
-    if ($error == 1) {
-        $subject = "[Charter][SUCCESS] Upload of " . $zip;
-        $message = "OK";
-    }
-    else {
+    $subject = "[mapshup] Requested password for user " . $email;
+    
+    $headers = "From: root@disasterschartercatalog.org\r\n" .
+            "Reply-To:  root@disasterschartercatalog.org\r\n" .
+            "X-Mailer: PHP/" . phpversion();
+    if ($error === "yes") {
         $subject = "[Charter][ERROR] Upload of " . $zip;
         $message = "KO";
     }
+    else {
+        $subject = "[Charter][SUCCESS] Upload of " . $zip;
+        $message = "OK";
+    }
     
     // Envoi du mail
-    mail($email, $subject, $message);
+    mail($email, $subject, $message, $headers);
     
     echo " >> Send email to $email \n";
 }
