@@ -37,7 +37,7 @@
     });
 
     c.add("plugins", {
-        name: "Charter",
+        name: "CharterNG",
         options: {
             service:c["general"].serverRootUrl + "/plugins/charterng/opensearch_act.xml?"
         }
