@@ -3,7 +3,7 @@
     /*
      * Update configuration options
      */
-    c["general"].rootUrl = 'http://localhost/charterng';
+    c["general"].rootUrl = 'http://disasterschartercatalog.org/cecec';
     c["general"].serverRootUrl = c["general"].rootUrl + '/s';
     c["general"].indexPath = "/index.html";
     c["general"].timeLine = {
