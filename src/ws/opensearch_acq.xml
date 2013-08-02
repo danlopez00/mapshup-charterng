@@ -5,7 +5,7 @@
 	<Description>International Charter Acquisitions images catalog search service</Description>
 	<Tags>charter</Tags>
 	<Contact>admin@disasterschartercatalog.org</Contact>
-	<Url type="application/json" template="http://disasterschartercatalog.org/cecec/s/plugins/charterng/search_acq.php?callid={cht:callid?}&amp;bbox={geo:box?}&amp;startDate={time:start?}&amp;completionDate={time:start?}&amp;modified={cht:modified?}" />
+	<Url type="application/json" template="http://disasterschartercatalog.org/cecec/s/plugins/charterng/search_acq.php?callid={cht:callid?}&amp;bbox={geo:box?}&amp;startDate={time:start?}&amp;completionDate={time:end?}&amp;modified={cht:modified?}" />
 	<Url type="application/json" rel="mspdesc" template="http://disasterschartercatalog.org/cecec/s/plugins/charterng/opensearch.json" />
 	<LongName>Charter OpenSearch catalog</LongName>
 	<Query role="example" searchTerms="observatory" />
