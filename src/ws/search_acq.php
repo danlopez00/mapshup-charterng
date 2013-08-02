@@ -148,7 +148,7 @@ if (!is_numeric($maxResults)) {
  * Optional input bbox
  */
 if (isset($_REQUEST['bbox']) && $_REQUEST['bbox'] != "") {
-    $where .= " AND ST_intersects(footprint, GeomFromText('" . pg_escape_string(bboxToWKTExtent($_REQUEST['bbox'])) . "', 4326))";
+    $where .= " AND ST_intersects(footprint, ST_GeomFromText('" . pg_escape_string(bboxToWKTExtent($_REQUEST['bbox'])) . "', 4326))";
 }
 
 /**
