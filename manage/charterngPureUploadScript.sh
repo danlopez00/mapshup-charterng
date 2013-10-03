@@ -26,5 +26,11 @@ HOMEDIR=`echo $TMP_HOMEDIR | awk -F\/ '{print $1}'`
 EMAIL=`cat $CHARTERNG_HOME/manage/users.txt | grep "/"$HOMEDIR"|" | awk -F\| '{print $4}'`
 FORMAT=`cat $CHARTERNG_HOME/manage/users.txt | grep "/"$HOMEDIR"|" | awk -F\| '{print $3}'`
 
+# 2013.10.03 - Added for Spotimage
+USER=`cat $CHARTERNG_HOME/manage/users.txt | grep "/"$HOMEDIR"|" | awk -F\| '{print $1}'`
+if [[ $USER == "cnes_dimap" ]]
+	then FORMAT=AUTO
+fi
+
 # Launch ingestion
 $CHARTERNG_HOME/manage/charterngIngestAcquisition.php $CHARTERNG_HOME/manage $1 $FORMAT $EMAIL
