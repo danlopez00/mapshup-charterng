@@ -225,3 +225,9 @@ FAQ
               3. Quit database prompt
 
               \q
+
+4. How to set hstore keywords
+
+        CREATE EXTENSION hstore;
+        ALTER TABLE acquisitions ADD COLUMN keywords hstore;
+        UPDATE acquisitions SET keywords = ('"' || (SELECT distinct lower(type) FROM disasters WHERE disasters.callid = acquisitions.callid) || '" => "DISASTER"')::hstore;
