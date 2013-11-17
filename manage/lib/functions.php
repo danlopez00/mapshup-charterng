@@ -11,6 +11,17 @@ function formatForDB($str) {
 }
 
 /**
+ * Return uppercase string without '-' and spaces
+ */
+function normalizeName($str) {
+  if (!$str) {
+    return "";
+  }
+  
+  return strtoupper(str_replace(array(" ", "-"), array("", ""), $str));
+}
+
+/**
  * Return an array of all files of type $type within $directory
  *
  * @param   string      The path to the directory
