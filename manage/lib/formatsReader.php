@@ -315,13 +315,13 @@ function posListToWKT($posList, $order) {
          * Case 1 : coordinates order is latitude then longitude
          */
         if ($order === "LATLON") {
-            $polygon .= $coordinates[$i + 1] . ' ' . $coordinates[$i] . ',';
+            $polygon .= ((float)$coordinates[$i + 1]) . ' ' . ((float)$coordinates[$i]) . ',';
         }
         /*
          * Case 2 : coordinates order is longitude then latitude
          */
         else {
-            $polygon .= $coordinates[$i] . ' ' . $coordinates[$i + 1] . ',';
+            $polygon .= ((float)$coordinates[$i]) . ' ' . ((float)$coordinates[$i + 1]) . ',';
         }
     }
 
@@ -561,10 +561,10 @@ function readDIMAP($filePath, $isFormosat) {
             $lat1 = $lat;
             $isFirst = 0;
         }
-        $footprint .= $lon . ' ' . $lat . ',';
+        $footprint .= ((float) $lon) . ' ' . ((float) $lat) . ',';
         
       }
-      $footprint .= $lon1 . ' ' . $lat1 . '))';
+      $footprint .= ((float) $lon1) . ' ' . ((float) $lat1) . '))';
     }
 
     else {
@@ -602,8 +602,8 @@ function readDIMAP($filePath, $isFormosat) {
         array_push($quads, array(
           'line' => $line,
           'pixel' => $pixel,
-          'lon' => $lon,
-          'lat' => $lat
+          'lon' => ((float) $lon),
+          'lat' => ((float) $lat)
         ));
       }
 
@@ -731,10 +731,10 @@ function readDIMAPv2($filePath) {
           $lat1 = $lat;
           $isFirst = 0;
       }
-      $footprint .= $lon . ' ' . $lat . ',';
+      $footprint .= ((float) $lon) . ' ' . ((float) $lat) . ',';
       
     }
-    $footprint .= $lon1 . ' ' . $lat1 . '))';
+    $footprint .= ((float) $lon1) . ' ' . ((float) $lat1) . '))';
     
     // Only process first scene
     $scene = $doc->getElementsByTagname('Source_Identification')->item(0);
@@ -874,11 +874,11 @@ function readSACC($filePath) {
 
   // Footprint
   $json["footprint"] = 'POLYGON(('
-    . $ULlon . ' ' . $ULlat . ','
-    . $URlon . ' ' . $URlat . ','
-    . $LRlon . ' ' . $LRlat . ','
-    . $LLlon . ' ' . $LLlat . ','
-    . $ULlon . ' ' . $ULlat . '))';
+    . ((float) $ULlon) . ' ' . ((float) $ULlat) . ','
+    . ((float) $URlon) . ' ' . ((float) $URlat) . ','
+    . ((float) $LRlon) . ' ' . ((float) $LRlat) . ','
+    . ((float) $LLlon) . ' ' . ((float) $LLlat) . ','
+    . ((float) $ULlon) . ' ' . ((float) $ULlat) . '))';
 
   return $json;
 
@@ -967,11 +967,11 @@ function readIRS($filePath) {
 
   // Footprint
   $json["footprint"] = 'POLYGON(('
-    . $ULlon . ' ' . $ULlat . ','
-    . $URlon . ' ' . $URlat . ','
-    . $LRlon . ' ' . $LRlat . ','
-    . $LLlon . ' ' . $LLlat . ','
-    . $ULlon . ' ' . $ULlat . '))';
+    . ((float) $ULlon) . ' ' . ((float) $ULlat) . ','
+    . ((float) $URlon) . ' ' . ((float) $URlat) . ','
+    . ((float) $LRlon) . ' ' . ((float) $LRlat) . ','
+    . ((float) $LLlon) . ' ' . ((float) $LLlat) . ','
+    . ((float) $ULlon) . ' ' . ((float) $ULlat) . '))';
 
   return $json;
 
@@ -1069,11 +1069,11 @@ function readLANDSAT($filePath) {
 
   // Footprint
   $json["footprint"] = 'POLYGON(('
-    . $ULlon . ' ' . $ULlat . ','
-    . $URlon . ' ' . $URlat . ','
-    . $LRlon . ' ' . $LRlat . ','
-    . $LLlon . ' ' . $LLlat . ','
-    . $ULlon . ' ' . $ULlat . '))';
+    . ((float) $ULlon) . ' ' . ((float) $ULlat) . ','
+    . ((float) $URlon) . ' ' . ((float) $URlat) . ','
+    . ((float) $LRlon) . ' ' . ((float) $LRlat) . ','
+    . ((float) $LLlon) . ' ' . ((float) $LLlat) . ','
+    . ((float) $ULlon) . ' ' . ((float) $ULlat) . '))';
   
   // Date
   $json["startDate"] = correctDate($date . "T" . $time);
@@ -1220,7 +1220,7 @@ function readRS2($filePath) {
       }
     }
 
-    $footprint = 'POLYGON((' . $UL . ',' . $UR . ',' . $LR . ',' . $LL . ',' . $UL . '))';
+    $footprint = 'POLYGON((' . ((float) $UL) . ',' . ((float) $UR) . ',' . ((float) $LR) . ',' . ((float) $LL) . ',' . ((float) $UL) . '))';
 
     // Other infos
     $sourceAttributes = $doc->getElementsByTagname('sourceAttributes')->item(0);
