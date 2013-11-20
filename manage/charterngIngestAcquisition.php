@@ -557,9 +557,17 @@ if (unzip($zip, $targetDir, true, true)) {
                     . "thumbnail=" . formatForDB($json["thumbnail"]) . ","
                     . "modifieddate=now(),"
                     . "footprint=ST_GeomFromText('" . $json["footprint"] . "', 4326)";
-            $query = "UPDATE acquisitions SET " . $set . " WHERE identifier=" . formatForDB($json["identifier"]);
-            pg_query($dbh, $query);
-            echo "  >> Update in database\n";
+            $query = "UPDATE acquisitions SET " . $set . " WHERE identifier=" . formatForDB($json["identifier"]) . " RETURNING identifier";
+            try {
+                $t = pg_query($dbh, $query);
+                if (!$t) {
+                    throw new Exception('ERROR UPDATING', 405);
+                }
+                echo "  >> Update in database\n";
+            } catch (Exception $e) {
+                echo "  >> Error in update\n";
+                $error = "yes";
+            }
         }
         // INSERT
         else {
@@ -578,10 +586,19 @@ if (unzip($zip, $targetDir, true, true)) {
                     . "now(),"
                     . "ST_GeomFromText('" . $json["footprint"] . "', 4326)";
 
-            $query = "INSERT INTO acquisitions " . $fields . " VALUES (" . $values . ")";
-
-            pg_query($dbh, $query);
-            echo "  >> Insert in database\n\n";
+            $query = "INSERT INTO acquisitions " . $fields . " VALUES (" . $values . ") RETURNING identifier";
+            
+            try {
+                $t = pg_query($dbh, $query);
+                if (!$t) {
+                    throw new Exception('ERROR INSERTING', 405);
+                }
+                echo "  >> Insert in database\n\n";
+            } catch (Exception $e) {
+                echo "  >> Error in insert;";
+                $error = "yes";
+            }
+            
         }
 
         $archived = basename($zip); 
