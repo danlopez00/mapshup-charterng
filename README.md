@@ -170,7 +170,12 @@ We suppose that pure-ftpd is correctly installed and PURE_VIRTUAL_ROOT is the ft
         pure-pw useradd user1 -u ftpuser -g ftpgroup -d /ftphomedir/user1 -N 100
         pure-pw useradd user2 -u ftpuser -g ftpgroup -d /ftphomedir/user2 -N 100
 
-9. Rebuild password database
+9. Remove quotas !!
+        
+        pure-pw usermod user -N ''
+        pure-pw usermod user -n ''
+        
+10. Rebuild password database
 
         pure-pw mkdb
 
