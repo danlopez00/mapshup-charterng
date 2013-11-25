@@ -21,6 +21,7 @@ The metadata files imported within the catalog should be aligned with the follow
                 OPT         (HMA OPT used by ESA, JAXA, KARI, CBERS)
                 IRS
                 LANDSAT
+                PHR	    (Pléiades image used by CNES)
           - XXXX can be anything you want (usefull if you have more that one product linked to the same CALLID)
 
      NOTE : the callid must be on three digit (e.g. 53 must be written 053)
