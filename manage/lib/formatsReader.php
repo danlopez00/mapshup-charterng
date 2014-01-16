@@ -1210,8 +1210,8 @@ function readRS2($filePath) {
       array_push($quads, array(
         'line' => $line,
         'pixel' => $pixel,
-        'lon' => $lon,
-        'lat' => $lat
+        'lon' => (float)$lon,
+        'lat' => (float)$lat
       ));
     }
 
@@ -1232,7 +1232,7 @@ function readRS2($filePath) {
       }
     }
 
-    $footprint = 'POLYGON((' . ((float) $UL) . ',' . ((float) $UR) . ',' . ((float) $LR) . ',' . ((float) $LL) . ',' . ((float) $UL) . '))';
+    $footprint = 'POLYGON((' . $UL . ',' . $UR . ',' . $LR . ',' . $LL . ',' . $UL . '))';
 
     // Other infos
     $sourceAttributes = $doc->getElementsByTagname('sourceAttributes')->item(0);
