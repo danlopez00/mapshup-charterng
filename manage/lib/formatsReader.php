@@ -690,6 +690,17 @@ function readDIMAP($filePath, $isFormosat) {
               </Vertex>
             </Dataset_Extent>
           </Dataset_Content>
+          <Processing_Information>
+            <Production_Facility>
+              <SOFTWARE version="V_03_09">IPU V_03_09</SOFTWARE>
+              <PROCESSING_CENTER>FCMUGC</PROCESSING_CENTER>
+              <PROCESSING_PLACE/>
+            </Production_Facility>
+            <Product_Settings>
+                ...
+                <SPECTRAL_PROCESSING>P</SPECTRAL_PROCESSING>
+                ...
+          </Processing_Information>
           <Dataset_Sources>
             <Source_Identification>
               <SOURCE_ID>DS_PHR1A_201210040819238_FR1_PX_E033N09_0924_01863</SOURCE_ID>
@@ -722,6 +733,7 @@ function readDIMAPv2($filePath) {
     $isFirst = 1;
     $footprint = 'POLYGON((';
     
+    $spectralMode = $doc->getElementsByTagname('Processing_Information')->item(0)->getElementsByTagname('Product_Settings')->item(0)->getElementsByTagname('SPECTRAL_PROCESSING')->item(0)->nodeValue;
     $vertices = $doc->getElementsByTagname('Dataset_Extent')->item(0)->getElementsByTagname('Vertex');
     foreach($vertices as $vertex) {
       $lon = trim($vertex->getElementsByTagName('LON')->item(0)->nodeValue);
@@ -746,7 +758,7 @@ function readDIMAPv2($filePath) {
     $parentIdentifier = "urn:ogc:def:EOP:PHR:" . $sceneInfo->getElementsByTagname('MISSION_INDEX')->item(0)->nodeValue; 
    
     return array(
-      'identifier' => $parentIdentifier . ':' . correctIdentifier($scene->getElementsByTagname('SOURCE_ID')->item(0)->nodeValue),
+      'identifier' => $parentIdentifier . ':' . correctIdentifier($scene->getElementsByTagname('SOURCE_ID')->item(0)->nodeValue . $spectralMode),
       'parentidentifier' => $parentIdentifier,
       'startdate' => $time,
       'enddate' => $time,
