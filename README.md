@@ -236,4 +236,4 @@ FAQ
 
         CREATE EXTENSION hstore;
         ALTER TABLE acquisitions ADD COLUMN keywords hstore;
-        UPDATE acquisitions SET keywords = ('"' || (SELECT distinct lower(type) FROM disasters WHERE disasters.callid = acquisitions.callid) || '" => "DISASTER"')::hstore;
+        UPDATE acquisitions SET keywords = ('"disaster:' || (SELECT distinct lower(type) FROM disasters WHERE disasters.callid = acquisitions.callid) || '" => NULL')::hstore;
