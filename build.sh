@@ -42,6 +42,8 @@ if [ "$CLONE" = "YES" ]
 then
     echo -e " -> Clone mapshup git repository to $SRC/mapshup directory"   
     git clone https://github.com/jjrom/mapshup.git $SRC/mapshup
+    echo -e " -> Checkout revision b9fbad8748d8e580f964d1bb62e94e85853b7df9"
+    git checkout b9fbad8748d8e580f964d1bb62e94e85853b7df9
     rm -Rf $SRC/mapshup/.git
 fi
 
