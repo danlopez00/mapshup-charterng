@@ -48,6 +48,7 @@
         title: 'Charter Acquisitions',
         url: c["general"].serverRootUrl + '/plugins/charterng/opensearch_acq.xml',
         connectorName: 'OpenSearch',
+        inactive:true,
         MID:'midcgt123456',
         unremovable: true,
         color: '#FF007F',
