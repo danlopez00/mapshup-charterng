@@ -129,12 +129,22 @@
             title: "CALL ID $callid$ : $title$",
 	    onSelect:function(f){
 	        var c = M.Map.Util.getLayerByMID("midcgt123456");
-                if (c) {
-                        c.destroyFeatures();
-                        M.Map.events.trigger("layersend", {
-                                action:"features",
-                                layer:c
-                        });
+                if (c && f && f.geometry) {
+                    /*c.destroyFeatures();
+                    M.Map.events.trigger("layersend", {
+                            action:"features",
+                            layer:c
+                    });
+                    */
+                    var sc = c["_M"].searchContext,
+                            auto = sc.autoSearch;
+                    sc.autoSearch = false;
+                    sc.setGeo(false);
+                    sc.clear();
+                    sc.setFilter("callid", f.attributes["callid"]);
+                    sc.search();
+                    sc.setGeo(true);
+                    sc.autoSearch = auto;
                 } 
 	    },
             keys: {
