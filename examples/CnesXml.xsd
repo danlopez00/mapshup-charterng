@@ -1,0 +1,33 @@
+<xsd:schema targetNamespace="https://disastercharter.org/cgt" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml"
+  elementFormDefault="qualified">
+  <xsd:import id="gml" namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd" />
+  <xsd:complexType xmlns="https://disastercharter.org/cgt" name="kmlUrlsType">
+    <xsd:sequence>
+      <xsd:element name="kmlUrl" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType xmlns="https://disastercharter.org/cgt" name="locationType">
+    <xsd:sequence>
+      <xsd:element ref="gml:Point" />
+      <xsd:element ref="gml:Rectangle" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="kmlUrls" type="kmlUrlsType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:element name="disaster">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="updated" type="xsd:string" />
+        <xsd:element name="title" type="xsd:string" />
+        <xsd:element name="date" type="xsd:string" />
+        <xsd:element name="callid" type="xsd:string" />
+        <xsd:element name="type" type="xsd:string" />
+        <xsd:element name="description" type="xsd:string" />
+        <xsd:element name="link" type="xsd:string" />
+        <xsd:element name="image" type="xsd:string" />
+        <xsd:element name="location" type="locationType" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>

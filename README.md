@@ -237,3 +237,20 @@ FAQ
         CREATE EXTENSION hstore;
         ALTER TABLE acquisitions ADD COLUMN keywords hstore;
         UPDATE acquisitions SET keywords = ('"disaster:' || (SELECT distinct lower(type) FROM disasters WHERE disasters.callid = acquisitions.callid) || '" => NULL')::hstore;
+
+5. How to insert a new disaster from webservice
+
+        NOTE : $CHARTERNG_HOME/src/ws/admin/insertCall.php service is NOT INSTALLED
+        during installation process to avoid security issues - it is an unprotected
+        service that should not be exposed to internet users
+        
+        curl -X POST -F "file[]=@$CHARTERNG_HOME/examples/example-polygons.xml" http://localhost/devel/mapshup-charterng/src/ws/admin/insertCall.php
+
+6. How to remove a disaster from webservice
+
+        NOTE : $CHARTERNG_HOME/src/ws/admin/deleteCall.php service is NOT INSTALLED
+        during installation process to avoid security issues - it is an unprotected
+        service that should not be exposed to internet users
+        
+        curl -X GET http://localhost/devel/mapshup-charterng/src/ws/admin/deleteCall.php?callid=322
+

@@ -53,6 +53,13 @@ SELECT AddGeometryColumn(
     'POINT',
     2
 );
+SELECT AddGeometryColumn(
+    'disasters',
+    'footprint',
+    '4326',
+    'POLYGON',
+    2
+);
 -- Index on CALLID --
 CREATE INDEX callid_act_idx ON disasters USING btree (callid);
 -- Index on DisasterDate --
@@ -65,8 +72,19 @@ CREATE INDEX title_act_idx ON disasters (title text_pattern_ops);
 CREATE INDEX type_act_idx ON disasters USING btree (type);
 -- Geometry --
 CREATE INDEX location_act_idx ON disasters USING GIST (location);
+CREATE INDEX footprint_act_idx ON disasters USING GIST (footprint);
 
-
+-- ==================================================================
+--
+-- Associative table between KMLs and disaster
+--
+-- ==================================================================
+CREATE TABLE kmls (
+    callid            VARCHAR(4),
+    kmlurl            TEXT
+);
+-- Index on CALLID --
+CREATE INDEX callid_kmls_idx ON kmls USING btree (callid);
 
 -- ==================================================================
 --
