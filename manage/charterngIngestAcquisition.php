@@ -82,7 +82,15 @@ if (unzip($zip, $targetDir, true, true)) {
     echo "  >> unzip to $targetDir\n";
 
     $json = null;
+    
+    if ($format === 'RSAT1') {
+        $format = 'RS1';
+    }
 
+    if ($format === 'RSAT2') {
+        $format = 'RS2';
+    }
+            
     // Process metadata depending on metadata format
     switch ($format) {
 
