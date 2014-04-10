@@ -6,7 +6,6 @@
  * Date:    2012.12.03
  * 
  */
-
 function microtime_float() {
     list($usec, $sec) = explode(" ", microtime());
     return ((float)$usec + (float)$sec);
@@ -241,9 +240,9 @@ while ($product = pg_fetch_assoc($results)) {
                     'mimeType' => 'application/xml'
                 )
             ),*/
-            'quicklook' => $product['quicklook'] ? CHARTERNG_QUICKLOOK_URL . $product['quicklook'] : "",
-            'thumbnail' => CHARTERNG_QUICKLOOK_URL . ($product['thumbnail'] ?  $product['thumbnail']: "no_thumbnail.jpg"),
-            'metadata' =>  $product['metadata'] ? CHARTERNG_QUICKLOOK_URL . $product['metadata']: ""
+            'quicklook' => $product['quicklook'] ? (!filter_var($product['quicklook'], FILTER_VALIDATE_URL) ? CHARTERNG_QUICKLOOK_URL : '' ) . $product['quicklook'] : "",
+            'thumbnail' => $product['thumbnail'] ? (!filter_var($product['thumbnail'], FILTER_VALIDATE_URL) ? CHARTERNG_QUICKLOOK_URL : '' ) . $product['thumbnail'] : CHARTERNG_QUICKLOOK_URL . "no_thumbnail.jpg",
+            'metadata' =>  $product['metadata'] ? (!filter_var($product['metadata'], FILTER_VALIDATE_URL) ? CHARTERNG_QUICKLOOK_URL : '' ) . $product['metadata']: ""
         )
     );
 
