@@ -8,7 +8,6 @@
     background-color:#000;
     color:#fff;
     height:75px;
-    background:#000 url(./img/header.png) no-repeat left;
 }
 #Mfooter {
     background-color:#000;
@@ -28,4 +27,7 @@
 }
 #Mfooter table td:hover {
     color:#000;
+}
+div.fi div.info a {
+    color: #F0DB2B;
 }
