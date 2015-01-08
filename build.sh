@@ -53,6 +53,10 @@ then
     cp -f $SRC/src/catalog_OpenSearch.js $SRC/mapshup/client/js/mapshup/lib/plugins/Catalog/OpenSearch.js
     cp -f $SRC/src/plugins_Catalog.js $SRC/mapshup/client/js/mapshup/lib/plugins/Catalog.js
     cp -f $SRC/src/layerTypes_Catalog.js $SRC/mapshup/client/js/mapshup/lib/layerTypes/Catalog.js
+
+    echo -e " -> Modify FeatureInfo for CharterNG"
+    cp -f $SRC/src/FeatureInfo.js $SRC/mapshup/client/js/mapshup/lib/core/Map/FeatureInfo.js
+
     echo -e " -> Compile mapshup to $TARGET directory"
     /bin/rm -Rf $TARGET
     $SRC/mapshup/utils/packer/pack.sh $SRC/mapshup $TARGET default $SRC/src/config.js $SRC/src/buildfile.txt 0

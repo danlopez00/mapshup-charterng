@@ -198,7 +198,7 @@ while ($product = pg_fetch_assoc($results)) {
     $totalResults = $product['count'];
 }
 
-$query = "SELECT identifier, callid, startdate, enddate, platform, instrument, metadata, quicklook, thumbnail, modifieddate, ST_AsGeoJSON(footprint) AS geojson FROM acquisitions" . $where . " ORDER BY callid, startdate LIMIT " . $maxResults . " OFFSET " . $cursor;
+$query = "SELECT identifier, callid, startdate, enddate, platform, instrument, metadata, quicklook, thumbnail, archive, modifieddate, ST_AsGeoJSON(footprint) AS geojson FROM acquisitions" . $where . " ORDER BY callid, startdate LIMIT " . $maxResults . " OFFSET " . $cursor;
 $results = pg_query($dbh, $query) or die(pg_last_error());
 
 /*
@@ -233,13 +233,12 @@ while ($product = pg_fetch_assoc($results)) {
             'instrument' => $product['instrument'],
             'startDate' => str_replace(" ", "T", $product['startdate']),
             'completionDate' => str_replace(" ", "T", $product['enddate']),
-            'modified' => str_replace(" ", "T", $product['modifieddate']),/*
-            'services' => array(
+            'modified' => str_replace(" ", "T", $product['modifieddate']),
+            'services' => $product['archive'] ? array(
                 'download' => array(
-                    'url' => CHARTERNG_METADATA_URL . $product['metadata'],
-                    'mimeType' => 'application/xml'
+                    'url' => (!filter_var($product['archive'], FILTER_VALIDATE_URL) ? CHARTERNG_METADATA_URL : '') . $product['archive']
                 )
-            ),*/
+            ) : '',
             'quicklook' => $product['quicklook'] ? (!filter_var($product['quicklook'], FILTER_VALIDATE_URL) ? CHARTERNG_QUICKLOOK_URL : '' ) . $product['quicklook'] : "",
             'thumbnail' => $product['thumbnail'] ? (!filter_var($product['thumbnail'], FILTER_VALIDATE_URL) ? CHARTERNG_QUICKLOOK_URL : '' ) . $product['thumbnail'] : CHARTERNG_QUICKLOOK_URL . "no_thumbnail.jpg",
             'metadata' =>  $product['metadata'] ? (!filter_var($product['metadata'], FILTER_VALIDATE_URL) ? CHARTERNG_QUICKLOOK_URL : '' ) . $product['metadata']: ""
