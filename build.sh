@@ -78,9 +78,9 @@ cp $SRC/src/aois.html $TARGET
 cp $SRC/src/aois.js $TARGET/$PROJECT
 
 mkdir $TARGET/s/plugins/$PROJECT
-cp $SRC/src/ws/* $TARGET/s/plugins/$PROJECT
+cp -Rf $SRC/src/ws/* $TARGET/s/plugins/$PROJECT
 
-echo -e 'WARNING ! Remove admin directory (see FAQ in README.md)\n';
-rm -Rf $TARGET/$PROJECT/s/plugins/$PROJECT/admin
+#echo -e 'WARNING ! Remove admin directory (see FAQ in README.md)\n';
+#rm -Rf $TARGET/$PROJECT/s/plugins/$PROJECT/admin
 
 echo -e " -> done!\n"
