@@ -53,6 +53,10 @@ then
     cp -f $SRC/src/catalog_OpenSearch.js $SRC/mapshup/client/js/mapshup/lib/plugins/Catalog/OpenSearch.js
     cp -f $SRC/src/plugins_Catalog.js $SRC/mapshup/client/js/mapshup/lib/plugins/Catalog.js
     cp -f $SRC/src/layerTypes_Catalog.js $SRC/mapshup/client/js/mapshup/lib/layerTypes/Catalog.js
+
+    echo -e " -> Modify FeatureInfo for CharterNG"
+    cp -f $SRC/src/FeatureInfo.js $SRC/mapshup/client/js/mapshup/lib/core/Map/FeatureInfo.js
+
     echo -e " -> Compile mapshup to $TARGET directory"
     /bin/rm -Rf $TARGET
     $SRC/mapshup/utils/packer/pack.sh $SRC/mapshup $TARGET default $SRC/src/config.js $SRC/src/buildfile.txt 0
@@ -74,9 +78,9 @@ cp $SRC/src/aois.html $TARGET
 cp $SRC/src/aois.js $TARGET/$PROJECT
 
 mkdir $TARGET/s/plugins/$PROJECT
-cp $SRC/src/ws/* $TARGET/s/plugins/$PROJECT
+cp -Rf $SRC/src/ws/* $TARGET/s/plugins/$PROJECT
 
-echo -e 'WARNING ! Remove admin directory (see FAQ in README.md)\n';
-rm -Rf $TARGET/$PROJECT/s/plugins/$PROJECT/admin
+#echo -e 'WARNING ! Remove admin directory (see FAQ in README.md)\n';
+#rm -Rf $TARGET/$PROJECT/s/plugins/$PROJECT/admin
 
 echo -e " -> done!\n"

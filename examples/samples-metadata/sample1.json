@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "identifier": "test-urn:ogc:def:EOP:DLR:C118_N101_A_SC_scan_008_R_2010-12-29T17:33:18.434000Z",
+    "callId": "1505",
+    "platform": "TDX1",
+    "instrument": "SAR",
+    "startDate":"2010-12-29T17:33:18.43",
+    "completionDate":"2010-12-29T17:33:40.43",
+    "quicklookUrl": "505_SO_000046059_0001_1/PREVIEW.JPG",
+    "thumbnailUrl": "505_SO_000046059_0001_1/ICON.JPG",
+    "productUrl": "https://some.link",
+    "originalMetadataUrl": "505_SO_000046059_0001_1/eop.xml",
+    "wkt": "POLYGON((3.32714 43.17796, 2.99023 44.55741, 4.32329 44.72631, 4.63669 43.34738, 3.32714 43.17796))"
+  }
+}

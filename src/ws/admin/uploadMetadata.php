@@ -42,6 +42,7 @@ function bboxToWKTExtent($bbox) {
  * Include configuration file
  */
 require_once realpath(dirname(__FILE__)) . '/../config.php';
+require_once realpath(dirname(__FILE__)) . '/RestUtil.php';
 
 /**
  * This script returns JSON
@@ -53,11 +54,11 @@ header("Cache-Control: no-cache, must-revalidate");
 header("Content-type: application/json; charset=utf-8");
 
 /*
- * Read POST input JSON metadata
+ * Read POST data
  */
-if (isset($_POST["metadata"])) {
-    $md = json_decode($_POST["metadata"]);
-    $json = $md->metadata;
+$data = RestUtil::readInputData();
+if (is_array($data) && count($data) > 0) {
+    $json = $data["metadata"];
 }
 
 /*
@@ -73,7 +74,7 @@ if (isset($_POST["metadata"])) {
  *              platform          VARCHAR(250),                 -- Platform/shortName + Platform/identifier
  *              instrument        VARCHAR(250),                 -- Instrument/shortName
  *              metadata          TEXT,                         -- relative path from the CHARTERNG_ROOT_HTTP to the unzipped XML metadata file
- *!NOT USE!     archive           TEXT,                         -- relative path from the CHARTERNG_ROOT_HTTP to the source image if available
+ *              archive           TEXT,                         -- relative path from the CHARTERNG_ROOT_HTTP to the source image if available
  *              quicklook         VARCHAR(250),                 -- relative path from the CHARTERNG_ROOT_HTTP to the quicklook
  *              thumbnail         VARCHAR(250),                 -- relative path from the CHARTERNG_ROOT_HTTP to the thumbnail
  *              modifieddate      TIMESTAMP
@@ -89,7 +90,7 @@ if ($json && $json !== "") {
     $dbh = pg_connect("host=".CHARTERNG_DB_HOST." dbname=".CHARTERNG_DB_NAME." user=".CHARTERNG_DB_USER." password=".CHARTERNG_DB_PASSWORD) or die($error);
     
     // Check if already exist
-    $query = "SELECT identifier FROM acquisitions WHERE identifier=" . formatForDB($json->identifier);
+    $query = "SELECT identifier FROM acquisitions WHERE identifier=" . formatForDB($json["identifier"]);
     $result = pg_query($dbh, $query);
     $exist = 0;
     if ($result) {
@@ -100,39 +101,39 @@ if ($json && $json !== "") {
     // UPDATE
     if ($exist === 1) {
 
-        $set = "identifier=" . formatForDB($json->identifier). ","
-        . "parentidentifier=" . formatForDB($json->identifier) . ","
-        . "callid=" . formatForDB($json->callId) . ","
-        . "startdate=" . formatForDB($json->startDate) . ","
-        . "enddate=" . formatForDB($json->completionDate) . ","
-        . "platform=" . formatForDB($json->platform) . ","
-        . "instrument=" . formatForDB($json->instrument) . ","
-        . "quicklook=" . formatForDB($json->quicklookUrl) . ","
-        . "thumbnail=" . formatForDB($json->thumbnailUrl) . ","
-        . "metadata=" . formatForDB($json->originalMetadataUrl) . ","
-        . "archive=" . formatForDB($json->productUrl) . ","
+        $set = "identifier=" . formatForDB($json["identifier"]). ","
+        . "parentidentifier=" . formatForDB($json["identifier"]) . ","
+        . "callid=" . formatForDB($json["callId"]) . ","
+        . "startdate=" . formatForDB($json["startDate"]) . ","
+        . "enddate=" . formatForDB($json["completionDate"]) . ","
+        . "platform=" . formatForDB($json["platform"]) . ","
+        . "instrument=" . formatForDB($json["instrument"]) . ","
+        . "quicklook=" . formatForDB($json["quicklookUrl"]) . ","
+        . "thumbnail=" . formatForDB($json["thumbnailUrl"]) . ","
+        . "metadata=" . formatForDB($json["originalMetadataUrl"]) . ","
+        . "archive=" . formatForDB($json["productUrl"]) . ","
         . "modifieddate=now(),"
-        . "footprint=ST_GeomFromText('" . $json->wkt . "', 4326)";
-        $query = "UPDATE acquisitions SET " . $set . " WHERE identifier=" . formatForDB($json->identifier);
+        . "footprint=ST_GeomFromText('" . $json["wkt"] . "', 4326)";
+        $query = "UPDATE acquisitions SET " . $set . " WHERE identifier=" . formatForDB($json["identifier"]);
         pg_query($dbh, $query) or die('{"success":"false", "message":"Update failed"}');
     }
     // INSERT
     else {
         $fields = "(identifier,parentidentifier,callid,startdate,enddate,platform,instrument,quicklook,thumbnail,metadata,archive,creationdate,modifieddate,footprint)";
-        $values = formatForDB($json->identifier) . ","
-        . formatForDB($json->identifier) . ","
-        . formatForDB($json->callId) . ","
-        . formatForDB($json->startDate) . ","
-        . formatForDB($json->completionDate) . ","
-        . formatForDB($json->platform) . ","
-        . formatForDB($json->instrument) . ","
-        . formatForDB($json->quicklookUrl) . ","
-        . formatForDB($json->thumbnailUrl) . ","
-        . formatForDB($json->originalMetadataUrl) . ","
-        . formatForDB($json->productUrl) . ","
+        $values = formatForDB($json["identifier"]) . ","
+        . formatForDB($json["identifier"]) . ","
+        . formatForDB($json["callId"]) . ","
+        . formatForDB($json["startDate"]) . ","
+        . formatForDB($json["completionDate"]) . ","
+        . formatForDB($json["platform"]) . ","
+        . formatForDB($json["instrument"]) . ","
+        . formatForDB($json["quicklookUrl"]) . ","
+        . formatForDB($json["thumbnailUrl"]) . ","
+        . formatForDB($json["originalMetadataUrl"]) . ","
+        . formatForDB($json["productUrl"]) . ","
         . "now(),"
         . "now(),"
-        . "ST_GeomFromText('" . $json->wkt . "', 4326)";
+        . "ST_GeomFromText('" . $json["wkt"] . "', 4326)";
 
         $query = "INSERT INTO acquisitions " . $fields . " VALUES (" . $values . ")";
         
