@@ -1,0 +1,95 @@
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+<name>My layer #98</name>
+<description>Exported by http://mapshup.info on 2015-01-09T11:31:36+01:00</description>
+<Style id="sn_ylw-pushpin">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<PolyStyle>
+			<color>44ffffff</color>
+		</PolyStyle>
+	</Style>
+	<StyleMap id="msn_ylw-pushpin">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ylw-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ylw-pushpin</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sh_ylw-pushpin">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<PolyStyle>
+			<color>44ff008b</color>
+		</PolyStyle>
+	</Style><Placemark>
+<name><![CDATA[point1]]></name>
+<description><![CDATA[name : point1</br>description : point1</br>]]></description>
+<styleUrl>#msn_ylw-pushpin</styleUrl>
+<Point>
+<coordinates>4.136334659370347,42.34204417784754,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name><![CDATA[point2]]></name>
+<description><![CDATA[name : point2</br>description : point2</br>]]></description>
+<styleUrl>#msn_ylw-pushpin</styleUrl>
+<Point>
+<coordinates>4.971295596870385,42.93203738219236,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name><![CDATA[line1]]></name>
+<description><![CDATA[name : line1</br>description : line1</br>]]></description>
+<styleUrl>#msn_ylw-pushpin</styleUrl>
+<LineString>
+<coordinates>3.916608096870362,43.03651765996119,0 4.817487003120349,43.28494619377323,0 5.630475284370342,42.86765357686454,0 5.070172549995355,42.47183634812956,0</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name><![CDATA[line2]]></name>
+<description><![CDATA[name : line2</br>description : line2</br>]]></description>
+<styleUrl>#msn_ylw-pushpin</styleUrl>
+<LineString>
+<coordinates>3.5211002843703874,42.851547121249986,0 2.993756534370331,42.32580127639461,0 4.421979190620374,41.62339132619917,0 4.817487003120349,42.08980792302061,0</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name><![CDATA[poly1]]></name>
+<description><![CDATA[name : poly1</br>description : poly1</br>]]></description>
+<styleUrl>#msn_ylw-pushpin</styleUrl>
+<Polygon>
+<outerBoundaryIs>
+<LinearRing>
+<coordinates>1.4886295812453596,43.31692790097879,0 2.752057315620391,42.52043917051649,0 3.2794010656203576,42.99635395184033,0 3.488141299995366,43.4287313821344,0 2.6971256749953274,43.0686297116778,0 2.213727237495358,43.9609363643546,0 1.4886295812453596,43.31692790097879,0</coordinates>
+</LinearRing>
+</outerBoundaryIs>
+</Polygon>
+</Placemark>
+<Placemark>
+<name><![CDATA[poly2]]></name>
+<description><![CDATA[name : poly2</br>description : poly2</br>]]></description>
+<styleUrl>#msn_ylw-pushpin</styleUrl>
+<Polygon>
+<outerBoundaryIs>
+<LinearRing>
+<coordinates>3.5320866124953634,44.244945959285374,0 3.916608096870362,43.42075225482367,0 5.619488956245366,43.34889278444533,0 4.191266299995322,43.651719893063635,0 3.5320866124953634,44.244945959285374,0</coordinates>
+</LinearRing>
+</outerBoundaryIs>
+</Polygon>
+</Placemark>
+</Document>
+</kml>

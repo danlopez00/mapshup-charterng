@@ -239,7 +239,7 @@ SELECT AddGeometryColumn(
     'aois',
     'the_geom',
     '4326',
-    'MULTIPOLYGON',
+    'GEOMETRY',
     2
 );
 
