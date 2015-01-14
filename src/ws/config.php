@@ -24,4 +24,15 @@ define("CHARTERNG_DB_PASSWORD", "1234abcd");
  */
 define("RESULTS_PER_PAGE", 50);
 
+/**
+ * If your webserver is behind a proxy set USE_PROXY to true
+ * The PROXY_* parameters are only used if USE_PROXY
+ * is set to true
+ */
+define("USE_PROXY", false);
+define("PROXY_URL", "");
+define("PROXY_PORT", "");
+define("PROXY_USER", "");
+define("PROXY_PASSWORD", "");
+
 ?>
