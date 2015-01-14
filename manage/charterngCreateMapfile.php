@@ -71,7 +71,7 @@ MAP
            "wms_srs"   "EPSG:4326"
            "wms_extent" "-180.0 -90.0 180.0 90.0"
            "wms_timeformat" "YYYY-MM-DD, YYYY-MM-DDT00:00:00"
-           "wms_timeextent" "2000-01-01/2015-01-01"
+           "wms_timeextent" "2000-01-01/2099-01-01"
            "wms_timeitem" "act_date_1"
         END
         DATA "the_geom FROM aois using unique gid using srid = 4326"
@@ -109,5 +109,4 @@ echo 'Writing ' . CHARTERNG_MAPSERVER_DIR . "/aois.map\n";
 $handle = fopen(CHARTERNG_MAPSERVER_DIR . "/aois.map", 'w');
 fwrite($handle, $mapfile);
 fclose($handle);
-echo "Done!\n"
-?>
+echo "Done!\n";
