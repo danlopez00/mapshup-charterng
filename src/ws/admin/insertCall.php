@@ -135,7 +135,7 @@ function getGeomsFromKML($url) {
     // Load and parse KML file from the $url
     $kml = simplexml_load_string(getRemoteData($url, null, false));
 
-    $kmlGeoms = [];
+    $kmlGeoms = array();
     if (isset($kml->Document) && isset($kml->Document->Placemark)) {
 
         $placemarks = $kml->Document->Placemark;
