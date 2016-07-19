@@ -1,7 +1,7 @@
 mapshup-charterng
 =================
 
-The catalog application of the "International Charter Space and Major Disasters" - http://engine.mapshup.info/charterng/
+The catalog application of the "International Charter Space and Major Disasters" - http://cgt.prod.esaportal.eu/charterng/
 
 Metadata format
 ===============
